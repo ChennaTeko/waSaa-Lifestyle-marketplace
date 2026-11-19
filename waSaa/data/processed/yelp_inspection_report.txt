@@ -1,0 +1,57 @@
+Businesses read: 150346
+Missing categories: 103
+Potentially relevant records sampled: 1000
+
+TOP 30 CATEGORIES
+Restaurants: 52268
+Food: 27781
+Shopping: 24395
+Home Services: 14356
+Beauty & Spas: 14292
+Nightlife: 12281
+Health & Medical: 11890
+Local Services: 11198
+Bars: 11065
+Automotive: 10773
+Event Planning & Services: 9895
+Sandwiches: 8366
+American (Traditional): 8139
+Active Life: 7687
+Pizza: 7093
+Coffee & Tea: 6703
+Fast Food: 6472
+Breakfast & Brunch: 6239
+American (New): 6097
+Hotels & Travel: 5857
+Home & Garden: 5799
+Fashion: 5739
+Burgers: 5636
+Arts & Entertainment: 5434
+Auto Repair: 5433
+Hair Salons: 5046
+Nail Salons: 4621
+Mexican: 4600
+Italian: 4573
+Specialty Food: 4233
+
+TOP 20 CITIES
+Philadelphia: 14560
+Tucson: 9244
+Tampa: 9042
+Indianapolis: 7537
+Nashville: 6969
+New Orleans: 6208
+Reno: 5929
+Edmonton: 5053
+Saint Louis: 4824
+Santa Barbara: 3828
+Boise: 2934
+Clearwater: 2221
+Saint Petersburg: 1660
+Metairie: 1639
+Sparks: 1621
+Wilmington: 1444
+Franklin: 1414
+St. Louis: 1255
+St. Petersburg: 1185
+Meridian: 1043

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>waSaa Lifestyle | User Profile & Preferences</title>
+    <!-- Plus Jakarta Sans Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Base Reset & Core Tokens */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        :root {
+            --brand-red: #ff003b;
+            --brand-red-hover: #d60031;
+            --brand-red-light: #ffe6ea;
+            --bg-neutral: #f8f9fa;
+            --surface-white: #ffffff;
+            --text-primary: #111111;
+            --text-secondary: #666666;
+            --border-light: #e8e8e8;
+            --radius-pill: 9999px;
+            --radius-card: 16px;
+            --radius-btn: 24px;
+            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.04);
+            --shadow-float: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-neutral);
+            color: var(--text-primary);
+            padding-bottom: 80px;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* 1. Navbar Header */
+        .navbar {
+            background: var(--surface-white);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 14px 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--brand-red);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo span {
+            color: var(--text-primary);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .icon-btn {
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #f2f2f2;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            background: #e5e5e5;
+            transform: translateY(-1px);
+        }
+
+        .icon-btn.active {
+            background: var(--brand-red-light);
+            border: 2px solid var(--brand-red);
+        }
+
+        .user-avatar-btn {
+            width: 42px;
+            height: 42px;
+            background: var(--text-primary);
+            color: var(--surface-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-decoration: none;
+            border: 2px solid var(--brand-red);
+            box-shadow: 0 2px 8px rgba(255, 0, 59, 0.2);
+        }
+
+        /* 2. Hero Banner */
+        .hero-banner {
+            background: var(--brand-red);
+            color: var(--surface-white);
+            padding: 40px 24px;
+            background-image: radial-gradient(circle at 90% 10%, rgba(255,255,255,0.15) 0%, transparent 40%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .badge-tag {
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: var(--radius-pill);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .hero-banner p {
+            opacity: 0.92;
+            font-size: 0.95rem;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .tier-badge {
+            background: var(--surface-white);
+            color: var(--brand-red);
+            padding: 8px 18px;
+            border-radius: var(--radius-pill);
+            font-weight: 800;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+        }
+
+        /* Layout Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 32px auto 0;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        /* Card Sections */
+        .profile-card {
+            background: var(--surface-white);
+            border-radius: var(--radius-card);
+            border: 1px solid var(--border-light);
+            padding: 28px;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .card-header-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .card-subtitle {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 22px;
+        }
+
+        /* Avatar Upload Section */
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-light);
+            flex-wrap: wrap;
+        }
+
+        .avatar-large-container {
+            position: relative;
+            width: 88px;
+            height: 88px;
+        }
+
+        .avatar-large {
+            width: 100%;
+            height: 100%;
+            background: var(--text-primary);
+            color: var(--surface-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            border: 4px solid var(--brand-red);
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .avatar-edit-overlay {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            background: var(--brand-red);
+            color: var(--surface-white);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid var(--surface-white);
+            font-size: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .avatar-edit-overlay:hover {
+            transform: scale(1.1);
+        }
+
+        .avatar-text h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .avatar-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .btn-upload-hidden {
+            display: none;
+        }
+
+        .btn-secondary-outline {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            padding: 8px 16px;
+            border-radius: var(--radius-btn);
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary-outline:hover {
+            background: var(--bg-neutral);
+            border-color: #ccc;
+        }
+
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            border: 1.5px solid var(--border-light);
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            outline: none;
+            font-weight: 500;
+            background: #fafafa;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--brand-red);
+            background: var(--surface-white);
+        }
+
+        /* Interest Pills (Lifestyle Tuning) */
+        .pills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .interest-pill {
+            background: #f0f0f0;
+            color: var(--text-primary);
+            padding: 10px 18px;
+            border-radius: var(--radius-pill);
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+            border: 1.5px solid transparent;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .interest-pill:hover {
+            background: #e5e5e5;
+            transform: translateY(-1px);
+        }
+
+        .interest-pill.active {
+            background: var(--brand-red-light);
+            color: var(--brand-red);
+            border-color: var(--brand-red);
+            box-shadow: 0 2px 8px rgba(255, 0, 59, 0.12);
+        }
+
+        .pill-check {
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        .interest-pill.active .pill-check {
+            display: inline;
+        }
+
+        /* Address Management List */
+        .address-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .address-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            background: #fafafa;
+        }
+
+        .address-info h4 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .default-tag {
+            background: #e6f4ea;
+            color: #137333;
+            font-size: 0.72rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .address-info p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .btn-action-icon {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 6px;
+            border-radius: 50%;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .btn-action-icon:hover {
+            color: var(--brand-red);
+            background: var(--brand-red-light);
+        }
+
+        /* Buttons & Actions */
+        .btn-primary {
+            background: var(--brand-red);
+            color: var(--surface-white);
+            border: none;
+            padding: 12px 28px;
+            border-radius: var(--radius-btn);
+            font-weight: 800;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(255, 0, 59, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-red-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(255, 0, 59, 0.35);
+        }
+
+        .btn-dark {
+            background: var(--text-primary);
+            color: var(--surface-white);
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-btn);
+            font-weight: 800;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-dark:hover {
+            background: #333333;
+            transform: translateY(-1px);
+        }
+
+        /* Toast Notification */
+        .toast-msg {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #111111;
+            color: #ffffff;
+            padding: 14px 24px;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-float);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 2000;
+            border: 1px solid #333;
+        }
+
+        .toast-msg.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-msg span.icon {
+            color: #4cd964;
+        }
+
+        /* Confirmation Modal */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .modal-backdrop.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: var(--surface-white);
+            padding: 32px;
+            border-radius: var(--radius-card);
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow-float);
+            transform: scale(0.95);
+            transition: transform 0.2s ease;
+        }
+
+        .modal-backdrop.show .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-card h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .modal-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .modal-btn-cancel {
+            background: #f0f0f0;
+            color: var(--text-primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-btn);
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .modal-btn-confirm {
+            background: var(--brand-red);
+            color: var(--surface-white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-btn);
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .hero-banner {
+                padding: 28px 16px;
+            }
+            .hero-banner h1 {
+                font-size: 1.8rem;
+            }
+            .main-container {
+                padding: 0 16px;
+            }
+            .profile-card {
+                padding: 20px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Header Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">waSaa <span>lifestyle</span></a>
+            
+            <div class="user-menu">
+                <a href="favorites.html" class="icon-btn" title="Saved Favorites">❤️</a>
+                <a href="notifications.html" class="icon-btn" title="Business Messages & Notifications">🔔</a>
+                <a href="profile.html" class="user-avatar-btn" title="My Active Profile" id="nav-avatar-btn">CS</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. Hero Header Banner -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <div>
+                <span class="badge-tag">MEMBER SETTINGS</span>
+                <h1>My Profile & Taste</h1>
+                <p>Personalize your lifestyle parameters and recommendation model</p>
+            </div>
+            <div class="tier-badge">
+                <span>✨</span> waSaa VIP Member
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="main-container">
+
+        <!-- 3. Account Details & Avatar Section -->
+        <section class="profile-card">
+            <div class="avatar-section">
+                <div class="avatar-large-container">
+                    <div class="avatar-large" id="avatar-preview">CS</div>
+                    <label for="avatar-input" class="avatar-edit-overlay" title="Upload new photo">📷</label>
+                    <input type="file" id="avatar-input" class="btn-upload-hidden" accept="image/*" onchange="handleAvatarUpload(event)">
+                </div>
+                <div class="avatar-text">
+                    <h3 id="display-name-header">Cshin Smith</h3>
+                    <p id="display-email-header">cshin@wasaa.app • Member in Tampa, FL</p>
+                    <label for="avatar-input" class="btn-secondary-outline">Change Profile Photo</label>
+                </div>
+            </div>
+
+            <h3 class="card-header-title">Personal Details</h3>
+            <p class="card-subtitle">Keep your contact information accurate for service bookings and inquiries.</p>
+
+            <form id="profile-details-form" onsubmit="saveProfileDetails(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="input-fullname">Full Name</label>
+                        <input type="text" id="input-fullname" value="Cshin Smith" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-email">Email Address</label>
+                        <input type="email" id="input-email" value="cshin@wasaa.app" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-phone">Phone Number</label>
+                        <input type="tel" id="input-phone" value="+1 (813) 555-0199">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-location">Primary Search City/Area</label>
+                        <input type="text" id="input-location" value="Tampa, FL">
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px;">
+                    <button type="submit" class="btn-primary">
+                        <span>💾</span> Save Account Details
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- 4. Lifestyle & Taste Preferences (NLP Engine Tuning) -->
+        <section class="profile-card">
+            <h3 class="card-header-title">Lifestyle & Recommendation Taste</h3>
+            <p class="card-subtitle">Select your top service sectors to tune your personalized waSaa AI recommendation feed.</p>
+
+            <div class="pills-grid" id="interest-pills-container">
+                <!-- Interactive Interest Pills -->
+                <div class="interest-pill active" onclick="toggleInterest(this, 'Urgent Care')">
+                    <span>🩺</span> Urgent Care & Health <span class="pill-check">✓</span>
+                </div>
+                <div class="interest-pill active" onclick="toggleInterest(this, 'Vet & Pet Care')">
+                    <span>🐾</span> Vet & Pet Care <span class="pill-check">✓</span>
+                </div>
+                <div class="interest-pill active" onclick="toggleInterest(this, 'Auto Repair')">
+                    <span>🔧</span> Auto Repair & Tires <span class="pill-check">✓</span>
+                </div>
+                <div class="interest-pill" onclick="toggleInterest(this, 'Fine Dining')">
+                    <span>🍷</span> Fine Dining & Cafes <span class="pill-check">✓</span>
+                </div>
+                <div class="interest-pill" onclick="toggleInterest(this, 'Beauty & Spa')">
+                    <span>💇‍♀️</span> Beauty, Spa & Wellness <span class="pill-check">✓</span>
+                </div>
+                <div class="interest-pill" onclick="toggleInterest(this, 'Home Services')">
+                    <span>🏡</span> Home Services & Electrical <span class="pill-check">✓</span>
+                </div>
+                <div class="interest-pill" onclick="toggleInterest(this, 'Optometry')">
+                    <span>👓</span> Optometry & Eyewear <span class="pill-check">✓</span>
+                </div>
+                <div class="interest-pill" onclick="toggleInterest(this, 'Fitness & Gym')">
+                    <span>🏋️‍♂️</span> Fitness & Personal Trainers <span class="pill-check">✓</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Saved Address / Area Management -->
+        <section class="profile-card">
+            <h3 class="card-header-title">Saved Locations & Addresses</h3>
+            <p class="card-subtitle">Locations used for quick distance matching and emergency service lookups.</p>
+
+            <div class="address-list" id="address-list">
+                <div class="address-item">
+                    <div class="address-info">
+                        <h4>📍 Home Address <span class="default-tag">PRIMARY</span></h4>
+                        <p>1021 Bayshore Blvd, Tampa, FL 33606</p>
+                    </div>
+                    <button class="btn-action-icon" title="Remove address" onclick="removeAddress(this)">🗑️</button>
+                </div>
+                <div class="address-item">
+                    <div class="address-info">
+                        <h4>🏢 Work Location</h4>
+                        <p>400 N Ashley Dr, Downtown Tampa, FL 33602</p>
+                    </div>
+                    <button class="btn-action-icon" title="Remove address" onclick="removeAddress(this)">🗑️</button>
+                </div>
+            </div>
+
+            <button class="btn-secondary-outline" onclick="promptAddAddress()">+ Add New Address</button>
+        </section>
+
+        <!-- 6. Account Security & Session Management -->
+        <section class="profile-card" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+                <h3 class="card-header-title">Account Session & Security</h3>
+                <p class="card-subtitle" style="margin-bottom: 0;">Currently signed in as cshin@wasaa.app on this web client.</p>
+            </div>
+            <button class="btn-dark" onclick="openLogoutModal()">Log Out</button>
+        </section>
+
+    </main>
+
+    <!-- Toast Component -->
+    <div class="toast-msg" id="toast-notification">
+        <span class="icon">✓</span>
+        <span id="toast-text">Profile changes saved successfully!</span>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-backdrop" id="logout-modal">
+        <div class="modal-card">
+            <h3>Log Out of waSaa?</h3>
+            <p>You will need to sign back in to access your saved favorites and business chats.</p>
+            <div class="modal-actions">
+                <button class="modal-btn-cancel" onclick="closeLogoutModal()">Cancel</button>
+                <button class="modal-btn-confirm" onclick="confirmLogout()">Yes, Log Out</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Load initial profile data from LocalStorage if available
+        document.addEventListener("DOMContentLoaded", () => {
+            loadSavedProfile();
+        });
+
+        // 1. Avatar Upload & Preview
+        function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const avatarPreview = document.getElementById("avatar-preview");
+                    avatarPreview.style.backgroundImage = `url('${e.target.result}')`;
+                    avatarPreview.style.backgroundSize = "cover";
+                    avatarPreview.style.backgroundPosition = "center";
+                    avatarPreview.textContent = "";
+
+                    // Update header small avatar button
+                    const navAvatar = document.getElementById("nav-avatar-btn");
+                    navAvatar.style.backgroundImage = `url('${e.target.result}')`;
+                    navAvatar.style.backgroundSize = "cover";
+                    navAvatar.textContent = "";
+
+                    // Save to localStorage
+                    localStorage.setItem("wasaa_user_avatar", e.target.result);
+                    showToast("Profile photo updated!");
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 2. Save Details
+        function saveProfileDetails(e) {
+            e.preventDefault();
+            const name = document.getElementById("input-fullname").value;
+            const email = document.getElementById("input-email").value;
+            const phone = document.getElementById("input-phone").value;
+            const location = document.getElementById("input-location").value;
+
+            const profileData = { name, email, phone, location };
+            localStorage.setItem("wasaa_user_profile", JSON.stringify(profileData));
+
+            // Update UI displays
+            document.getElementById("display-name-header").textContent = name;
+            document.getElementById("display-email-header").textContent = `${email} • Member in ${location}`;
+            
+            // Update Avatar Initials if no custom image set
+            if (!localStorage.getItem("wasaa_user_avatar")) {
+                const initials = name.split(" ").map(n => n[0]).join("").toUpperCase().substring(0, 2);
+                document.getElementById("avatar-preview").textContent = initials || "CS";
+                document.getElementById("nav-avatar-btn").textContent = initials || "CS";
+            }
+
+            showToast("Account details updated successfully!");
+        }
+
+        // 3. Load Saved Profile State
+        function loadSavedProfile() {
+            const savedProfile = JSON.parse(localStorage.getItem("wasaa_user_profile") || "null");
+            if (savedProfile) {
+                document.getElementById("input-fullname").value = savedProfile.name || "Cshin Smith";
+                document.getElementById("input-email").value = savedProfile.email || "cshin@wasaa.app";
+                document.getElementById("input-phone").value = savedProfile.phone || "+1 (813) 555-0199";
+                document.getElementById("input-location").value = savedProfile.location || "Tampa, FL";
+
+                document.getElementById("display-name-header").textContent = savedProfile.name || "Cshin Smith";
+                document.getElementById("display-email-header").textContent = `${savedProfile.email || 'cshin@wasaa.app'} • Member in ${savedProfile.location || 'Tampa, FL'}`;
+            }
+
+            const savedAvatar = localStorage.getItem("wasaa_user_avatar");
+            if (savedAvatar) {
+                const avatarPreview = document.getElementById("avatar-preview");
+                avatarPreview.style.backgroundImage = `url('${savedAvatar}')`;
+                avatarPreview.style.backgroundSize = "cover";
+                avatarPreview.textContent = "";
+
+                const navAvatar = document.getElementById("nav-avatar-btn");
+                navAvatar.style.backgroundImage = `url('${savedAvatar}')`;
+                navAvatar.style.backgroundSize = "cover";
+                navAvatar.textContent = "";
+            }
+        }
+
+        // 4. Toggle Interest Pills
+        function toggleInterest(element, categoryName) {
+            element.classList.toggle("active");
+            const isActive = element.classList.contains("active");
+            
+            // Save state
+            let savedInterests = JSON.parse(localStorage.getItem("wasaa_interests") || "[]");
+            if (isActive) {
+                if (!savedInterests.includes(categoryName)) savedInterests.push(categoryName);
+            } else {
+                savedInterests = savedInterests.filter(i => i !== categoryName);
+            }
+            localStorage.setItem("wasaa_interests", JSON.stringify(savedInterests));
+
+            showToast(isActive ? `Added ${categoryName} to taste profile` : `Removed ${categoryName}`);
+        }
+
+        // 5. Address Management
+        function removeAddress(btn) {
+            const item = btn.closest(".address-item");
+            item.remove();
+            showToast("Address removed");
+        }
+
+        function promptAddAddress() {
+            const addr = prompt("Enter new location or full address:");
+            if (addr && addr.trim()) {
+                const list = document.getElementById("address-list");
+                const newItem = document.createElement("div");
+                newItem.className = "address-item";
+                newItem.innerHTML = `
+                    <div class="address-info">
+                        <h4>📍 Saved Location</h4>
+                        <p>${addr.trim()}</p>
+                    </div>
+                    <button class="btn-action-icon" title="Remove address" onclick="removeAddress(this)">🗑️</button>
+                `;
+                list.appendChild(newItem);
+                showToast("New location saved!");
+            }
+        }
+
+        // 6. Toast Notification Helper
+        function showToast(message) {
+            const toast = document.getElementById("toast-notification");
+            const toastText = document.getElementById("toast-text");
+            toastText.textContent = message;
+
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000);
+        }
+
+        // 7. Modal Logout Triggers
+        function openLogoutModal() {
+            document.getElementById("logout-modal").classList.add("show");
+        }
+
+        function closeLogoutModal() {
+            document.getElementById("logout-modal").classList.remove("show");
+        }
+
+        function confirmLogout() {
+            closeLogoutModal();
+            showToast("Logging out...");
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

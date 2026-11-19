@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>waSaa Lifestyle | Discover Local Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #ffffff; color: #111111; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+
+        /* Navigation Bar */
+        .navbar { background: #ffffff; border-bottom: 1px solid #e5e5e5; position: sticky; top: 0; z-index: 1000; padding: 16px 28px; }
+        .nav-container { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        
+        .logo { font-weight: 800; font-size: 1.6rem; color: #ff003b; letter-spacing: -0.5px; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        .logo span { color: #111; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; }
+
+        .nav-actions { display: flex; align-items: center; gap: 14px; }
+        .btn-link { text-decoration: none; font-weight: 700; color: #111; font-size: 0.92rem; padding: 10px 18px; transition: color 0.2s; }
+        .btn-link:hover { color: #ff003b; }
+        .btn-cta { background: #ff003b; color: #ffffff; text-decoration: none; padding: 10px 22px; border-radius: 20px; font-weight: 800; font-size: 0.92rem; transition: background 0.2s ease, transform 0.15s ease; }
+        .btn-cta:hover { background: #d60031; transform: scale(1.02); }
+
+        /* Hero Section */
+        .hero-section { text-align: center; padding: 70px 24px 50px; background: linear-gradient(180deg, #fff5f7 0%, #ffffff 100%); }
+        .hero-title-wrapper { max-width: 850px; margin: 0 auto 20px; }
+        .hero-heading { font-size: 3.2rem; font-weight: 800; letter-spacing: -1.8px; line-height: 1.15; color: #111; }
+        
+        /* Dynamic Sliding Ticker (Pinterest Style) */
+        .sliding-text-container { display: inline-block; color: #ff003b; position: relative; height: 1.25em; vertical-align: bottom; overflow: hidden; }
+        .sliding-text-item { display: block; opacity: 0; transform: translateY(100%); transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; position: absolute; left: 0; top: 0; white-space: nowrap; font-weight: 800; }
+        .sliding-text-item.active { opacity: 1; transform: translateY(0%); position: relative; }
+
+        .hero-subtext { font-size: 1.15rem; color: #555; max-width: 600px; margin: 16px auto 32px; font-weight: 500; line-height: 1.5; }
+
+        /* Pinterest Style Masonry Recommendation Grid */
+        .discovery-grid { max-width: 1300px; margin: 20px auto 60px; padding: 0 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+        
+        .grid-card { background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #eaeaea; box-shadow: 0 6px 18px rgba(0,0,0,0.04); transition: transform 0.25s ease, box-shadow 0.25s ease; cursor: pointer; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
+        .grid-card:hover { transform: translateY(-8px); box-shadow: 0 16px 32px rgba(255, 0, 59, 0.12); border-color: #ffccd5; }
+
+        .card-img-box { position: relative; width: 100%; height: 220px; background: #f0f0f0; overflow: hidden; }
+        .card-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .grid-card:hover .card-img-box img { transform: scale(1.05); }
+
+        .card-pill-tag { position: absolute; top: 12px; left: 12px; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(4px); padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; color: #111; }
+        .card-info { padding: 20px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+        .card-info h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 6px; color: #111; }
+        .card-info p { font-size: 0.85rem; color: #666; font-weight: 500; }
+        
+        .card-cta-bar { margin-top: 16px; padding-top: 12px; border-top: 1px solid #f2f2f2; display: flex; justify-content: space-between; align-items: center; }
+        .card-cta-text { font-size: 0.82rem; font-weight: 800; color: #ff003b; }
+        .card-cta-icon { width: 28px; height: 28px; background: #ffe6ea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+
+        /* Callout Section */
+        .callout-banner { background: #111111; color: #ffffff; border-radius: 24px; max-width: 1250px; margin: 0 auto 60px; padding: 60px 32px; text-align: center; }
+        .callout-banner h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -1px; }
+        .callout-banner p { opacity: 0.85; max-width: 550px; margin: 0 auto 28px; font-size: 1rem; }
+
+        /* Footer */
+        .footer { background: #f8f9fa; border-top: 1px solid #e5e5e5; padding: 40px 24px; text-align: center; color: #777; font-size: 0.88rem; font-weight: 500; margin-top: auto; }
+        .footer span { color: #ff003b; font-weight: 800; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="landing.html" class="logo">waSaa <span>lifestyle</span></a>
+            
+            <div class="nav-actions">
+                <a href="login.html" class="btn-link">Log In</a>
+                <a href="signup.html" class="btn-cta">Sign Up Free</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Dynamic Sliding Recommendation Phrase -->
+    <section class="hero-section">
+        <div class="hero-title-wrapper">
+            <h1 class="hero-heading">
+                Find your next <br>
+                <span class="sliding-text-container" id="ticker-container">
+                    <span class="sliding-text-item active">💆‍♀️ Lifestyle Spa near you</span>
+                    <span class="sliding-text-item">🏥 Urgent Care Clinic near you</span>
+                    <span class="sliding-text-item">🐶 Veterinary Hospital near you</span>
+                    <span class="sliding-text-item">🚗 Automotive Specialist near you</span>
+                    <span class="sliding-text-item">💅 Beauty & Esthetician near you</span>
+                </span>
+            </h1>
+            <p class="hero-subtext">Discover top-rated local lifestyle services tailored to your personal preferences and needs.</p>
+            <a href="signup.html" class="btn-cta" style="padding: 14px 36px; font-size: 1.05rem;">Explore All Recommendations</a>
+        </div>
+    </section>
+
+    <!-- Pinterest-Style Curated Grid -->
+    <main class="discovery-grid">
+        <!-- Card 1 -->
+        <a href="signup.html" class="grid-card">
+            <div class="card-img-box">
+                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Spa & Wellness">
+                <span class="card-pill-tag">✨ Beauty & Spa</span>
+            </div>
+            <div class="card-info">
+                <h3>Zenith Wellness & Day Spa</h3>
+                <p>📍 South Tampa • Massage & Skincare</p>
+                <div class="card-cta-bar">
+                    <span class="card-cta-text">Book & Explore</span>
+                    <span class="card-cta-icon">➔</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="signup.html" class="grid-card">
+            <div class="card-img-box">
+                <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=600&q=80" alt="Pet Care">
+                <span class="card-pill-tag">🐾 Pets & Vets</span>
+            </div>
+            <div class="card-info">
+                <h3>Kindness Animal Hospital</h3>
+                <p>📍 Tampa • Pet Care & Emergency</p>
+                <div class="card-cta-bar">
+                    <span class="card-cta-text">Book & Explore</span>
+                    <span class="card-cta-icon">➔</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="signup.html" class="grid-card">
+            <div class="card-img-box">
+                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80" alt="Urgent Care">
+                <span class="card-pill-tag">🩺 Healthcare</span>
+            </div>
+            <div class="card-info">
+                <h3>TGH Urgent Care Center</h3>
+                <p>📍 Hyde Park • Walk-in Doctors</p>
+                <div class="card-cta-bar">
+                    <span class="card-cta-text">Book & Explore</span>
+                    <span class="card-cta-icon">➔</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 4 -->
+        <a href="signup.html" class="grid-card">
+            <div class="card-img-box">
+                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Auto Repair">
+                <span class="card-pill-tag">🔧 Auto Repair</span>
+            </div>
+            <div class="card-info">
+                <h3>All Makes Collision Center</h3>
+                <p>📍 Clearwater • Maintenance & Bodywork</p>
+                <div class="card-cta-bar">
+                    <span class="card-cta-text">Book & Explore</span>
+                    <span class="card-cta-icon">➔</span>
+                </div>
+            </div>
+        </a>
+    </main>
+
+    <!-- Bottom Conversion Banner -->
+    <section style="padding: 0 24px;">
+        <div class="callout-banner">
+            <h2>Ready to discover your local lifestyle?</h2>
+            <p>Create a free account to save your favorite businesses, chat directly with local providers, and get personalized service picks.</p>
+            <a href="signup.html" class="btn-cta" style="background: #ffffff; color: #ff003b; font-size: 1rem; padding: 14px 32px;">Get Started with waSaa</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        &copy; 2026 <span>waSaa lifestyle</span> Inc. All rights reserved.
+    </footer>
+
+    <!-- Pinterest Sliding Ticker JavaScript Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const items = document.querySelectorAll(".sliding-text-item");
+            let currentIndex = 0;
+
+            setInterval(() => {
+                const currentItem = items[currentIndex];
+                currentIndex = (currentIndex + 1) % items.length;
+                const nextItem = items[currentIndex];
+
+                currentItem.classList.remove("active");
+                nextItem.classList.add("active");
+            }, 2600); // Transitions every 2.6 seconds
+        });
+    </script>
+</body>
+</html>

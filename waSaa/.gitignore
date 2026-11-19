@@ -1,0 +1,28 @@
+.env
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+data/processed/*.csv
+data/processed/*.json
+!data/processed/.gitkeep
+
+# Kaggle datasets
+data/raw/yelp/*.zip
+data/raw/yelp/*.json
+
+# Local database files
+*.sqlite3
+
+# Environment files
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+*.zip
+*.mp4
+*.csv

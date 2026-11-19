@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>waSaa Lifestyle | Authentication</title>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            color: #111111;
+        }
+
+        .navbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 14px 24px;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #ff003b;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo span {
+            color: #111;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+        }
+
+        .auth-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+
+        .auth-container {
+            background: #ffffff;
+            border: 1px solid #e8e8e8;
+            padding: 36px 32px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .tab-header {
+            display: flex;
+            margin-bottom: 24px;
+            background: #f1f1f2;
+            padding: 4px;
+            border-radius: 99px;
+        }
+
+        .tab-header button {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            color: #666666;
+            border-radius: 99px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-header button.active {
+            color: #ff003b;
+            background: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .google-btn-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 4px;
+        }
+
+        .google-btn-container > div {
+            width: 100% !important;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #888888;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .divider span {
+            padding: 0 12px;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            background-color: #ffffff;
+            color: #111111;
+            outline: none;
+            font-weight: 500;
+            transition: border-color 0.2s ease;
+        }
+
+        .auth-form input::placeholder {
+            color: #999999;
+        }
+
+        .auth-form input:focus {
+            border-color: #ff003b;
+        }
+
+        .auth-form button, 
+        .modal button {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            background: #ff003b;
+            color: #ffffff;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 800;
+            transition: background 0.2s ease, transform 0.1s ease;
+            margin-top: 4px;
+        }
+
+        .auth-form button:hover, 
+        .modal button:hover {
+            background: #d60031;
+        }
+
+        .auth-form button:active, 
+        .modal button:active {
+            transform: scale(0.98);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            padding: 32px 28px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 340px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-content h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #111111;
+        }
+
+        .modal-content p {
+            font-size: 13px;
+            color: #666666;
+            line-height: 1.4;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 20px;
+            letter-spacing: 6px;
+            text-align: center;
+            font-weight: 800;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .modal-content input:focus {
+            border-color: #ff003b;
+        }
+
+        .cancel-btn {
+            background: #f1f1f2 !important;
+            color: #111111 !important;
+        }
+
+        .cancel-btn:hover {
+            background: #e5e5ea !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">waSaa <span>lifestyle</span></a>
+            <a href="index.html" style="text-decoration: none; font-size: 1.2rem;">🏠</a>
+        </div>
+    </header>
+
+    <main class="auth-wrapper">
+        <div class="auth-container">
+            <!-- Navigation Tabs -->
+            <div class="tab-header">
+                <button id="loginTabBtn" class="active" onclick="switchTab('login')">Log In</button>
+                <button id="signupTabBtn" onclick="switchTab('signup')">Sign Up</button>
+            </div>
+
+            <!-- Google Sign-In Button -->
+            <div class="google-btn-container">
+                <div id="g_id_onload"
+                     data-client_id="489059479806-k1ajuj37bb0vl2nji25kgf4ueq5o2u9g.apps.googleusercontent.com"
+                     data-callback="handleGoogleSignIn">
+                </div>
+                <div class="g_id_signin" 
+                     data-type="standard" 
+                     data-shape="pill" 
+                     data-theme="outline" 
+                     data-text="signin_with" 
+                     data-size="large" 
+                     data-width="336">
+                </div>
+            </div>
+
+            <div class="divider"><span>OR</span></div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form">
+                <input type="email" id="loginEmail" placeholder="Email Address" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit">Log In</button>
+            </form>
+
+            <!-- Sign Up Form -->
+            <form id="signupForm" class="auth-form hidden">
+                <input type="text" id="signupName" placeholder="Full Name" required>
+                <input type="email" id="signupEmail" placeholder="Email Address" required>
+                <input type="tel" id="signupPhone" placeholder="Phone Number (+1234567890)" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <button type="button" onclick="requestOTP()">Send Verification Code</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- OTP Modal -->
+    <div id="otpModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Enter Verification Code</h3>
+            <p>An OTP was sent to your email and phone.</p>
+            <input type="text" id="otpInput" maxlength="6" placeholder="6-Digit OTP">
+            <button type="button" onclick="verifyOTPAndRegister()">Verify & Register</button>
+            <button type="button" class="cancel-btn" onclick="closeOTPModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Script linking to your auth.js location -->
+    <script src="js/auth.js"></script>
+</body>
+</html>

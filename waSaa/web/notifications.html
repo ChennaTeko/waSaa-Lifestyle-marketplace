@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>waSaa Lifestyle | Business Inbox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #f8f9fa; color: #111111; padding-bottom: 60px; }
+
+        /* Top Header Navbar */
+        .navbar { background: #ffffff; border-bottom: 1px solid #e5e5e5; position: sticky; top: 0; z-index: 1000; padding: 14px 24px; }
+        .nav-container { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        
+        .logo { font-weight: 800; font-size: 1.5rem; color: #ff003b; letter-spacing: -0.5px; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        .logo span { color: #111; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; }
+
+        .user-menu { display: flex; align-items: center; gap: 16px; }
+        .icon-btn { text-decoration: none; font-size: 1.25rem; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; background: #f2f2f2; transition: background 0.2s ease; }
+        .icon-btn:hover { background: #e5e5e5; }
+        .icon-btn.active { background: #ffe6ea; border: 1px solid #ff003b; }
+        .user-avatar { width: 38px; height: 38px; background: #111111; color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; text-decoration: none; }
+
+        /* Red Banner Section */
+        .hero-banner { background: #ff003b; color: #ffffff; padding: 36px 24px; }
+        .hero-content { max-width: 1300px; margin: 0 auto; }
+        .hero-banner h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin-top: 6px; }
+        .hero-banner p { opacity: 0.95; font-size: 0.95rem; }
+        .badge-tag { background: rgba(255, 255, 255, 0.25); padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; }
+
+        /* Layout Container */
+        .main-container { max-width: 1300px; margin: 30px auto; padding: 0 24px; }
+        
+        /* Chat Inbox Box */
+        .inbox-layout { display: grid; grid-template-columns: 320px 1fr; background: #ffffff; border-radius: 12px; border: 1px solid #e8e8e8; min-height: 520px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.03); }
+        .chat-sidebar { background: #fcfcfc; border-right: 1px solid #eee; }
+        .chat-list-item { padding: 18px 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; transition: background 0.2s ease; }
+        .chat-list-item:hover, .chat-list-item.active { background: #ffffff; border-left: 4px solid #ff003b; }
+        .chat-title { font-weight: 700; font-size: 0.92rem; color: #111; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; }
+        .chat-preview { font-size: 0.82rem; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .time-tag { font-size: 0.72rem; color: #999; font-weight: 500; }
+        
+        /* Message Area */
+        .chat-main { display: flex; flex-direction: column; justify-content: space-between; padding: 24px; background: #ffffff; }
+        .chat-header-bar { border-bottom: 1px solid #eee; padding-bottom: 14px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .chat-header-bar h3 { font-size: 1.2rem; font-weight: 800; }
+        .availability-badge { background: #e6f4ea; color: #137333; font-weight: 700; font-size: 0.78rem; padding: 4px 10px; border-radius: 12px; }
+
+        .messages-container { display: flex; flex-direction: column; gap: 12px; flex: 1; overflow-y: auto; margin-bottom: 20px; max-height: 320px; padding-right: 8px; }
+        .msg-bubble { max-width: 75%; padding: 12px 16px; border-radius: 16px; font-size: 0.9rem; line-height: 1.4; }
+        .msg-bubble.user { background: #ff003b; color: #ffffff; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .msg-bubble.business { background: #f1f3f4; color: #111111; align-self: flex-start; border-bottom-left-radius: 2px; }
+
+        .chat-input-area { display: flex; gap: 10px; border-top: 1px solid #eee; padding-top: 16px; }
+        .chat-input-area input { flex: 1; border: 1px solid #ddd; padding: 10px 16px; border-radius: 20px; outline: none; font-size: 0.9rem; }
+        .chat-input-area input:focus { border-color: #ff003b; }
+        
+        .btn-send { background: #ff003b; color: #fff; border: none; padding: 10px 22px; border-radius: 20px; font-weight: 700; cursor: pointer; }
+        .btn-send:hover { background: #d60031; }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">waSaa <span>lifestyle</span></a>
+            
+            <div class="user-menu">
+                <a href="favorites.html" class="icon-btn" title="Saved Favorites">❤️</a>
+            
+                <a href="profile.html" class="user-avatar" title="My Profile">CS</a>
+                <a href="index.html" class="icon-btn" title="Home Feed">🏠</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Depop Banner -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <span class="badge-tag">MESSAGES & INBOX</span>
+            <h1>Business Notifications</h1>
+            <p>Direct chats, appointment updates, and availability responses</p>
+        </div>
+    </section>
+
+    <!-- Content Area -->
+    <main class="main-container">
+        <div class="inbox-layout">
+            <!-- Sidebar -->
+            <div class="chat-sidebar">
+                <div class="chat-list-item active">
+                    <div class="chat-title">
+                        Kindness Animal Hospital
+                        <span class="time-tag">10m ago</span>
+                    </div>
+                    <div class="chat-preview">🟢 We have an open slot today at 3:30 PM!</div>
+                </div>
+
+                <div class="chat-list-item">
+                    <div class="chat-title">
+                        TGH Urgent Care
+                        <span class="time-tag">2h ago</span>
+                    </div>
+                    <div class="chat-preview">Walk-in wait time is currently under 15 minutes.</div>
+                </div>
+
+                <div class="chat-list-item">
+                    <div class="chat-title">
+                        All Makes Collision Center
+                        <span class="time-tag">Yesterday</span>
+                    </div>
+                    <div class="chat-preview">Your vehicle inspection quote is ready to view.</div>
+                </div>
+            </div>
+
+            <!-- Active Chat View -->
+            <div class="chat-main">
+                <div>
+                    <div class="chat-header-bar">
+                        <div>
+                            <h3>Kindness Animal Hospital</h3>
+                            <span style="font-size: 0.82rem; color: #666;">Tampa, FL • Veterinarians & Pets</span>
+                        </div>
+                        <span class="availability-badge">● Open Today</span>
+                    </div>
+
+                    <div class="messages-container" id="messages-list">
+                        <div class="msg-bubble user">
+                            Hi! Do you have any open slots for a dog checkup in Tampa today?
+                        </div>
+                        <div class="msg-bubble business">
+                            Hello Cshin! Yes, we have an emergency appointment open at 3:30 PM today. Should we hold this time for you?
+                        </div>
+                    </div>
+                </div>
+
+                <form class="chat-input-area" onsubmit="sendChatMessage(event)">
+                    <input type="text" id="chat-msg-input" placeholder="Type a message to Kindness Animal Hospital..." required>
+                    <button type="submit" class="btn-send">Send</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function sendChatMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById("chat-msg-input");
+            if (!input.value.trim()) return;
+
+            const container = document.getElementById("messages-list");
+            const newMsg = document.createElement("div");
+            newMsg.className = "msg-bubble user";
+            newMsg.textContent = input.value;
+            container.appendChild(newMsg);
+
+            input.value = "";
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
+</body>
+</html>
